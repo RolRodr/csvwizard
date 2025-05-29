@@ -93,8 +93,8 @@ CSVWizard/
 
 ## Potential Future Enhancements
 
-*   More sophisticated error handling
-*   Additional transformation types (e.g., find/replace, conditional formatting, data type conversion).
-*   Ability to reorder transformations.
-*   Support for larger CSV files (streaming, background processing).
-*   Unit and integration tests.
+- [ ]   More sophisticated error handling
+- [ ]  Additional transformation types (e.g., find/replace, conditional formatting, data type conversion).
+- [ ]   Ability to reorder transformations.
+- [ ]   Support for larger CSV files (streaming, background processing).
+- [ ]   Unit and integration tests.
