@@ -2,3 +2,4 @@ to-do.md
 backend/bin/*
 backend/obj/*
 wwwroot/*
+.DS_Store

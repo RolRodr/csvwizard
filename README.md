@@ -34,7 +34,7 @@ CSV Wizard is a web application designed to help users upload, transform, and do
 
 1.  **Clone the repository (if applicable) or navigate to the project directory.**
     ```bash
-    git clone <REPO NAME>
+    git clone https://github.com/RolRodr/csvwizard.git
     ```
 
 2.  **Make the development script executable (if needed):**
