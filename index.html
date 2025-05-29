@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV Wizard &#129497</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body { font-family: Arial; margin: 2em; }
+        .csv-preview { border: 1px solid #ccc; margin-top: 1em; }
+        .csv-preview td, .csv-preview th { padding: 4px 8px; border: 1px solid #eee; }
+        .transform-list { margin: 1em 0; }
+        .transform-entry { margin-bottom: 0.5em; }
+        .controls { margin: 1em 0; }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+    <button id="toggle-sidebar-btn">☰</button>
+    <div id="sidebar" class="sidebar-container">
+        <h3>Transformations</h3>
+        <div class="transform-list" id="transform-list">
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h2>CSV Wizard &#129497</h2>
+        <input type="file" id="csvfile" accept=".csv" />
+        <div class="controls">
+            <button id="add-delete" class="transform-btn" disabled>Remove Column <span style="font-size:20px">&#128683</span></button>
+            <button id="add-normalize" class="transform-btn" disabled>Normalize Column <span style="font-size:20px">&#128207</span></button>
+            <button id="add-explode" class="transform-btn" disabled>Explode Column <span style="font-size:20px">&#128165</span></button>
+            <!-- <button id="add-address" class="transform-btn" disabled>Explode Address</button>
+            <button id="add-name" class="transform-btn" disabled>Explode Name</button> -->
+            <button id="download" class="transform-btn" disabled>Download CSV  <span style="font-size:20px">&#128190</span></button>
+        </div>
+            <div id="loading-indicator" style="display:none; padding: 10px; background-color: #f0f0f0; border: 1px solid #ccc; margin-top: 1em; text-align: center;">
+            Processing... Please wait.
+        </div>
+        <div class="table-container">
+            <table class="csv-preview" id="csv-preview"></table>
+        </div>
+    </div>
+    </div>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
