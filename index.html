@@ -24,13 +24,16 @@
 
     <div class="main-content">
         <h2>CSV Wizard &#129497</h2>
-        <input type="file" id="csvfile" accept=".csv" />
+        <div class="input-container">
+            <input type="file" id="csvfile" accept=".csv" />
+            <button id="reset" class="transform-btn" disabled>Poof! <span style="font-size:20px">&#128302</span></button>
+        </div>
         <div class="controls">
             <button id="add-delete" class="transform-btn" disabled>Remove Column <span style="font-size:20px">&#128683</span></button>
             <button id="add-normalize" class="transform-btn" disabled>Normalize Column <span style="font-size:20px">&#128207</span></button>
+            <button id="add-clean" class="transform-btn" disabled>Clean Text <span style="font-size:20px">&#129533</span></button>
             <button id="add-explode" class="transform-btn" disabled>Explode Column <span style="font-size:20px">&#128165</span></button>
-            <!-- <button id="add-address" class="transform-btn" disabled>Explode Address</button>
-            <button id="add-name" class="transform-btn" disabled>Explode Name</button> -->
+            <!-- <button id="add-name" class="transform-btn" disabled>Explode Name</button> -->
             <button id="download" class="transform-btn" disabled>Download CSV  <span style="font-size:20px">&#128190</span></button>
         </div>
             <div id="loading-indicator" style="display:none; padding: 10px; background-color: #f0f0f0; border: 1px solid #ccc; margin-top: 1em; text-align: center;">

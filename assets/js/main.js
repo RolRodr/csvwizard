@@ -5,7 +5,7 @@ const LS_SIDEBAR_COLLAPSED_KEY = 'csvwizard_sidebar_collapsed';
 const LS_CSV_RAW_KEY = 'csvWizardRawData';
 const LS_TRANSFORMATIONS_KEY = 'csvWizardTransformations';
 
-// Function to save state to localStorage
+// Save state to localStorage
 function saveState() {
     if (csvRaw) {
         localStorage.setItem(LS_CSV_RAW_KEY, csvRaw);
@@ -14,7 +14,7 @@ function saveState() {
     }
 }
 
-// Function to load state from localStorage
+// Load state from localStorage
 async function loadState() {
     const storedCsvRaw = localStorage.getItem(LS_CSV_RAW_KEY);
     const storedTransformations = localStorage.getItem(LS_TRANSFORMATIONS_KEY);
@@ -46,6 +46,19 @@ async function loadState() {
     }
 }
 
+// Reset state from localStorage
+function resetState() {
+    localStorage.removeItem(LS_CSV_RAW_KEY);
+    localStorage.removeItem(LS_TRANSFORMATIONS_KEY);
+    csvRaw = "";
+    transformations = [];
+    previewData = [];
+    document.getElementById('csv-preview').innerHTML = ""; // Clear preview table
+    document.getElementById('transform-list').innerHTML = ""; // Clear transformations list
+    document.getElementById('csvfile').value = ""; // Clear file input
+    Array.from(transformButtons).forEach(btn => btn.disabled = true); // Disable transform buttons
+    console.log("State reset. All data cleared.");
+}
 
 // Function to toggle sidebar
 function toggleSidebar() {
@@ -261,7 +274,7 @@ async function addTransform(type) {
 document.getElementById('add-delete').onclick = () => addTransform("delete");
 document.getElementById('add-normalize').onclick = () => addTransform("normalize");
 document.getElementById('add-explode').onclick = () => addTransform("explode");
-// document.getElementById('add-address').onclick = () => addTransform("explode_address");
+document.getElementById('add-clean').onclick = () => addTransform("clean");
 // document.getElementById('add-name').onclick = () => addTransform("explode_name");
 document.getElementById('download').onclick = async function() {
     loadingIndicator.style.display = 'block';
@@ -329,4 +342,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (toggleButton) {
         toggleButton.addEventListener('click', toggleSidebar);
     }
+
+    document.getElementById('reset').addEventListener('click', () => {
+        if (confirm("Are you sure you want to reset all data? This cannot be undone.")) {
+            resetState();
+        }
+    });
 });

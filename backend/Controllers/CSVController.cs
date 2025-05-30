@@ -40,52 +40,7 @@ namespace CSVWizard.Controllers
                     case "normalize": headers = NormalizeColumnAction(headers, t.Column); break;
                     case "delete": (headers, data) = DeleteAction(headers, data, t.Column); break;
                     case "explode": (headers, data) = ExplodeAction(headers, data, t.Column, t.Delimiter?.FirstOrDefault() ?? delimiter); break;          
-                    case "explode_address":
-                        {
-                            int idx = FindColIdx(t.Column, headers);
-                            if (idx >= 0)
-                            {
-                                string[] newCols = { "street", "city", "state", "zip" };
-                                headers.RemoveAt(idx);
-                                headers.InsertRange(idx, newCols);
-                                for (int i = 0; i < data.Count; i++)
-                                {
-                                    var row = data[i];
-                                    var parts = row.Length > idx ? row[idx].Split(',') : new string[0];
-                                    var expanded = new string[4];
-                                    for (int j = 0; j < 4; j++)
-                                        expanded[j] = j < parts.Length ? parts[j].Trim() : "";
-                                    var newRow = new List<string>(row);
-                                    newRow.RemoveAt(idx);
-                                    newRow.InsertRange(idx, expanded);
-                                    data[i] = newRow.ToArray();
-                                }
-                            }
-                        }
-                        break;
-                    case "explode_name":
-                        {
-                            int idx = FindColIdx(t.Column, headers);
-                            if (idx >= 0)
-                            {
-                                string[] newCols = { "first_name", "last_name" };
-                                headers.RemoveAt(idx);
-                                headers.InsertRange(idx, newCols);
-                                for (int i = 0; i < data.Count; i++)
-                                {
-                                    var row = data[i];
-                                    var parts = row.Length > idx ? row[idx].Split(' ') : new string[0];
-                                    var expanded = new string[2];
-                                    for (int j = 0; j < 2; j++)
-                                        expanded[j] = j < parts.Length ? parts[j].Trim() : "";
-                                    var newRow = new List<string>(row);
-                                    newRow.RemoveAt(idx);
-                                    newRow.InsertRange(idx, expanded);
-                                    data[i] = newRow.ToArray();
-                                }
-                            }
-                        }
-                        break;
+                    case "clean": (headers, data) = CleanTextAction(headers, data, t.Column); break;
                 }
             }
 
@@ -167,6 +122,31 @@ namespace CSVWizard.Controllers
                 data[i] = newRow.ToArray();
             }
             return (headers, data);
+        }
+
+        static (List<string>, List<string[]>) CleanTextAction(List<string> headers, List<string[]> data, string column)
+        {
+
+            int colIdx = FindColIdx(column, headers);
+            if (colIdx < 0 || colIdx >= headers.Count) return (headers, data);
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                var row = data[i];
+                if (colIdx < row.Length)
+                {
+                    row[colIdx] = CleanText(row[colIdx]);
+                }
+            }
+            return (headers, data);
+        }
+
+        static string CleanText(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text)) return text;
+            text = Regex.Replace(text, @"\s+", " ");
+            text = Regex.Replace(text, @"(^[^\w\d])|([^\w\d]$)", "");
+            return text.Trim();
         }
         static int FindColIdx(string col, List<string> headers)
         {
